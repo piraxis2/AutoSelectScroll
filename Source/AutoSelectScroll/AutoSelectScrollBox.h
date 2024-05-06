@@ -60,6 +60,7 @@ public:
 	void AutoUnSelectScrollBoxItem(UWidget* _TargetWidget);
 	void ScrollTick(SAutoSelectScrollBox* _ScrollBox);
 	virtual void ClearChildren() override;
+	UFUNCTION(BlueprintCallable, Category = "AutoSelectScrollBox")
 	void RequestScrollInToView(UWidget* _WidgetToFind) const;
 	bool IsRequested() const;
 

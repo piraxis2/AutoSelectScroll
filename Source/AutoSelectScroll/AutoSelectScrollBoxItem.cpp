@@ -59,11 +59,19 @@ void UAutoSelectScrollBoxItem_UseAnimation::ScrollTick(float _CenterGab)
 		const float fAnimEndTime = ScrollAni->GetEndTime();
 		const float fAnimCurrentTime = FMath::Clamp(fAnimEndTime * (1.f - _CenterGab), 0.0f, fAnimEndTime * 0.99);
 		if (UMGSequencePlayer)
+		{
 			UMGSequencePlayer->SetCurrentTime(fAnimCurrentTime);
 
-		if (0 < fAnimCurrentTime)
-			UMGSequencePlayer->Play(fAnimCurrentTime, 1, EUMGSequencePlayMode::Forward, 0.001f, false);
-		else
-			UMGSequencePlayer->Pause();
+			if (0 < fAnimCurrentTime)
+				UMGSequencePlayer->Play(fAnimCurrentTime, 1, EUMGSequencePlayMode::Forward, 0.001f, false);
+			else
+				UMGSequencePlayer->Pause();
+		}
 	}
+}
+
+void UAutoSelectScrollBoxItem_UseAnimation::RequestScrollIntoView()
+{
+	if (const auto ScrollBox = Cast<UAutoSelectScrollBox>(GetParent()))
+		ScrollBox->RequestScrollInToView(this);
 }

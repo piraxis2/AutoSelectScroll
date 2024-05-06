@@ -26,7 +26,7 @@ void SAutoSelectScrollBox::ScrollModify()
 		
 	if (WidgetToFind)
 	{
-		ScrollDescendantIntoView(WidgetToFind->GetCachedWidget(), false, EDescendantScrollDestination::Center);
+		ScrollDescendantIntoView(WidgetToFind->GetCachedWidget(), true, EDescendantScrollDestination::Center);
 		WidgetToFind = nullptr;
 		return;
 	}
@@ -166,6 +166,9 @@ UWidget* UAutoSelectScrollBox::GetTargetWidget() const
 void UAutoSelectScrollBox::AutoSelectScrollBoxItem(UWidget* _TargetWidget)
 {
 	OnAutoSelectedScrollBoxItem.Broadcast(_TargetWidget);
+#if WITH_EDITOR
+	UE_LOG(LogTemp, Log, TEXT("%s"), *_TargetWidget->GetName());
+#endif
 }
 
 void UAutoSelectScrollBox::AutoUnSelectScrollBoxItem(UWidget* _TargetWidget)
@@ -191,7 +194,7 @@ void UAutoSelectScrollBox::RequestScrollInToView(UWidget* _WidgetToFind) const
 	{
 		if (ScrollBox->IsOk())
 		{
-			ScrollBox->ScrollDescendantIntoView(_WidgetToFind->TakeWidget());
+			ScrollBox->ScrollDescendantIntoView(_WidgetToFind->GetCachedWidget(), true, EDescendantScrollDestination::Center);
 			return;
 		}
 		ScrollBox->WidgetToFind = _WidgetToFind;

@@ -38,7 +38,10 @@ class AUTOSELECTSCROLL_API UAutoSelectScrollBoxItem_UseAnimation : public UAutoS
 	GENERATED_BODY()
 public:
 	virtual void NativeConstruct() override;
-	virtual void ScrollTick(float _CenterGab) override;                                                                                                                                                                         
+	virtual void ScrollTick(float _CenterGab) override;
+
+	UFUNCTION(BlueprintCallable)
+	void RequestScrollIntoView();
 private:
 	UPROPERTY(EditAnywhere)
 	FName ScrollAnimationName;
